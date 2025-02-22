@@ -50,7 +50,7 @@ fun App() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(painterResource(Res.drawable.compose_multiplatform), null)
-                        Text("Compose: $greeting")
+                        Text("Compose: $greeting", color = Color.White)
                     }
                 }
             }
