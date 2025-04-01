@@ -1,29 +1,66 @@
 package com.pixel.composeexperiments
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
+import LibbyBookArrangement
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import composeexperiments.composeapp.generated.resources.Res
-import composeexperiments.composeapp.generated.resources.compose_multiplatform
+
+@Serializable
+object Home
+
+@Serializable
+object LibbyTextArrangement
+
+@Serializable
+object TextAnim
 
 @Composable
-@Preview
-fun App() {
+fun App(navController: NavHostController = rememberNavController()) {
+    NavHost(
+        navController = navController,
+        startDestination = Home
+    ) {
+        composable<Home> {
+            HomeScreen(
+                onNavigateToTextAnim = {
+                    navController.navigate(TextAnim)
+                },
+                onNavigateToBookUI = {
+                    navController.navigate(LibbyTextArrangement)
+                }
+            )
+        }
+        composable<LibbyTextArrangement> { LibbyBookArrangement() }
+        composable<TextAnim> { HelloMsCobelTextAnimation() }
+    }
+
+}
+
+@Composable
+fun HomeScreen(
+    onNavigateToBookUI: () -> Unit, onNavigateToTextAnim: () -> Unit
+) {
     MaterialTheme {
         Box(
             modifier = Modifier
@@ -37,21 +74,27 @@ fun App() {
                         )
                     )
                 )
+                .padding(24.dp),
+            contentAlignment = Alignment.Center
         ) {
-            var showContent by remember { mutableStateOf(false) }
-            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Button(onClick = { showContent = !showContent }) {
-                    Text("Click me please and thank you!", color = Color.White)
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    onClick = {
+                        onNavigateToBookUI()
+                    },
+                ) {
+                    Text("Libby Book Arrangement")
                 }
-                AnimatedVisibility(showContent) {
-                    val greeting = remember { Greeting().greet() }
-                    Column(
-                        Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Image(painterResource(Res.drawable.compose_multiplatform), null)
-                        Text("Compose: $greeting", color = Color.White)
-                    }
+
+                Button(
+                    onClick = {
+                        onNavigateToTextAnim()
+                    },
+                ) {
+                    Text("Severance Text Animation")
                 }
             }
         }
