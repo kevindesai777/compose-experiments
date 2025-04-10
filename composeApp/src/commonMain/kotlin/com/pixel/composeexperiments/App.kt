@@ -17,23 +17,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
-@Serializable
-object Home
+@Serializable @SerialName("home")
+data object Home
 
-@Serializable
+@Serializable @SerialName("libby_text_arrangement")
 object LibbyTextArrangement
 
-@Serializable
-object TextAnim
+@Serializable @SerialName("text_animation")
+data object TextAnim
 
 @Composable
 fun App(navController: NavHostController = rememberNavController()) {
