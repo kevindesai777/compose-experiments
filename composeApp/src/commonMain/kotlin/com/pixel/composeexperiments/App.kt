@@ -25,14 +25,21 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
-@Serializable @SerialName("home")
+@Serializable
+@SerialName("home")
 data object Home
 
-@Serializable @SerialName("libby_text_arrangement")
+@Serializable
+@SerialName("libby_text_arrangement")
 object LibbyTextArrangement
 
-@Serializable @SerialName("text_animation")
+@Serializable
+@SerialName("text_animation")
 data object TextAnim
+
+@Serializable
+@SerialName("lyft_button_shadow")
+data object LyftButton
 
 @Composable
 fun App(navController: NavHostController = rememberNavController()) {
@@ -47,18 +54,24 @@ fun App(navController: NavHostController = rememberNavController()) {
                 },
                 onNavigateToBookUI = {
                     navController.navigate(LibbyTextArrangement)
+                },
+                onNavigateToLyftButton = {
+                    navController.navigate(LyftButton)
                 }
             )
         }
         composable<LibbyTextArrangement> { LibbyBookArrangement() }
         composable<TextAnim> { HelloMsCobelTextAnimation() }
+        composable<LyftButton> { LyftButtonShadow() }
     }
 
 }
 
 @Composable
 fun HomeScreen(
-    onNavigateToBookUI: () -> Unit, onNavigateToTextAnim: () -> Unit
+    onNavigateToBookUI: () -> Unit,
+    onNavigateToTextAnim: () -> Unit,
+    onNavigateToLyftButton: () -> Unit
 ) {
     MaterialTheme {
         Box(
@@ -78,22 +91,23 @@ fun HomeScreen(
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = {
-                        onNavigateToBookUI()
-                    },
+                    onClick = { onNavigateToBookUI() },
                 ) {
                     Text("Libby Book Arrangement")
                 }
-
                 Button(
-                    onClick = {
-                        onNavigateToTextAnim()
-                    },
+                    onClick = { onNavigateToTextAnim() },
                 ) {
                     Text("Severance Text Animation")
+                }
+                Button(
+                    onClick = { onNavigateToLyftButton() },
+                ) {
+                    Text("Lyft Shadow Button")
                 }
             }
         }
