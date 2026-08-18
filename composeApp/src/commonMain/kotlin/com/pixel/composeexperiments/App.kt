@@ -41,6 +41,10 @@ data object TextAnim
 @SerialName("lyft_button_shadow")
 data object LyftButton
 
+@Serializable
+@SerialName("water_mesh_gradient")
+data object WaterTracker
+
 @Composable
 fun App(navController: NavHostController = rememberNavController()) {
     NavHost(
@@ -57,12 +61,16 @@ fun App(navController: NavHostController = rememberNavController()) {
                 },
                 onNavigateToLyftButton = {
                     navController.navigate(LyftButton)
+                },
+                onNavigateToWaterTracker = {
+                    navController.navigate(WaterTracker)
                 }
             )
         }
         composable<LibbyTextArrangement> { LibbyBookArrangement() }
         composable<TextAnim> { HelloMsCobelTextAnimation() }
         composable<LyftButton> { LyftButtonShadow() }
+        composable<WaterTracker> { WaterTrackerMeshGradient() }
     }
 
 }
@@ -71,7 +79,8 @@ fun App(navController: NavHostController = rememberNavController()) {
 fun HomeScreen(
     onNavigateToBookUI: () -> Unit,
     onNavigateToTextAnim: () -> Unit,
-    onNavigateToLyftButton: () -> Unit
+    onNavigateToLyftButton: () -> Unit,
+    onNavigateToWaterTracker: () -> Unit
 ) {
     MaterialTheme {
         Box(
@@ -108,6 +117,11 @@ fun HomeScreen(
                     onClick = { onNavigateToLyftButton() },
                 ) {
                     Text("Lyft Shadow Button")
+                }
+                Button(
+                    onClick = { onNavigateToWaterTracker() },
+                ) {
+                    Text("Water Tracker Mesh Gradient")
                 }
             }
         }

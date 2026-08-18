@@ -25,8 +25,9 @@ kotlin {
         }
     }
     
+    // iosX64 is gone: Compose Multiplatform 1.11 dropped Apple x86_64 targets after
+    // Kotlin deprecated them (KT-81596).
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
