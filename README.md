@@ -1,5 +1,33 @@
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
 
+## Experiments
+
+Every experiment lives in `composeApp/src/commonMain` and is reachable from the home screen.
+
+| Experiment | File |
+|---|---|
+| Libby Book Arrangement | `LibbyBookArrangement.kt` |
+| Severance Text Animation | `HelloMsCobel.kt` |
+| Lyft Shadow Button | `LyftButtonShadow.kt` |
+| Water Tracker Mesh Gradient | `WaterTracker.kt` |
+
+### A note on the toolchain
+
+The water tracker draws its surface with `MeshGradientPainter`, and Compose Multiplatform
+only started rendering that on the Skiko backends (iOS, desktop, web) in **1.12.0-beta01**.
+That sets the floor for the whole repo:
+
+* Compose Multiplatform `1.12.0-rc01` — still a release candidate
+* Kotlin `2.3.21` — CMP 1.12 needs 2.3.20+ for the Kotlin/Wasm target
+* AGP `9.3.1` + Gradle `9.5.0` + `compileSdk 37` — Compose 1.12's Android artifacts
+  refuse to resolve below AGP 9.1 / API 37
+
+AGP 9 also stopped allowing `com.android.application` in the same module as the Kotlin
+Multiplatform plugin, so `gradle.properties` carries AGP's documented `android.builtInKotlin=false` /
+`android.newDsl=false` bypass. The durable fix is splitting `composeApp` into a
+[`com.android.kotlin.multiplatform.library`](https://developer.android.com/kotlin/multiplatform/plugin)
+module plus a thin Android app module.
+
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
   - `commonMain` is for code that’s common for all targets.
