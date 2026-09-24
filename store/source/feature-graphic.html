@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800&display=block" rel="stylesheet">
+<style>
+*{margin:0;box-sizing:border-box}
+html,body{width:1024px;height:500px;overflow:hidden}
+body{font-family:Inter,sans-serif;position:relative;
+ background:
+  linear-gradient(rgba(61,220,132,.08) 1px,transparent 1px) 0 0/32px 32px,
+  linear-gradient(90deg,rgba(61,220,132,.08) 1px,transparent 1px) 0 0/32px 32px,
+  linear-gradient(135deg,#0B2E42,#0E5049)}
+.glow{position:absolute;left:560px;top:-10px;width:520px;height:520px;border-radius:50%;
+ background:radial-gradient(circle,rgba(61,220,132,.22),rgba(61,220,132,0) 62%)}
+.mark{position:absolute;left:545px;top:-20px;width:540px;height:540px}
+.text{position:absolute;left:72px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;width:520px}
+h1{color:#fff;font-weight:800;font-size:76px;line-height:1.0;letter-spacing:-2px}
+p{color:#8FD9B6;font-weight:500;font-size:23px;line-height:1.35;margin-top:22px;max-width:440px}
+.chips{display:flex;gap:10px;margin-top:28px}
+.chip{color:#E8F4FD;font-weight:600;font-size:15px;padding:7px 16px;border-radius:99px;border:1.5px solid rgba(61,220,132,.45);background:rgba(6,18,30,.35)}
+</style></head><body>
+<div class="glow"></div>
+<img class="mark" src="mark.svg">
+<div class="text">
+ <h1>Compose<br>Experiments</h1>
+ <p>UI experiments built with Compose Multiplatform</p>
+ <div class="chips"><span class="chip">Android</span><span class="chip">Web</span></div>
+</div>
+</body></html>

@@ -42,8 +42,13 @@ UI experiments built with Compose Multiplatform, shipped as an Android app and a
   changes that.
 - Keep third-party brand names (Libby, Lyft, Severance) out of store listing text.
 
+## Store listing
+
+Play Store text, feature graphic, screenshots and the graphic's HTML source live in `store/`
+(see `store/listing.md`).
+
 ## TODO: when the iOS app is on the App Store
 
-- Add the **iOS** chip back to the Play feature graphic (chips were Android · iOS · Web).
+- Swap the Play feature graphic for `store/feature-graphic-with-ios.png` (chips Android · iOS · Web).
 - Mention iOS again in the Play short description ("…for Android, iOS and the web") and the
-  first paragraph of the full description.
+  first paragraph of the full description, and update `store/listing.md` to match.
