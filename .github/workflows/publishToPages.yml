@@ -35,8 +35,8 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       # 4. Accept Android SDK licences
-      # composeApp is a single module, so even a wasm-only build configures the Android
-      # target and needs an SDK. compileSdk 37 is new enough that the runner image may
+      # composeApp also has an Android target, so even a wasm-only build configures it
+      # and needs an SDK. compileSdk 37 is new enough that the runner image may
       # not ship it; accepting licences lets AGP auto-download whatever it needs rather
       # than failing on an unaccepted-licence error.
       - name: "⚙️ Accept Android SDK licences"
