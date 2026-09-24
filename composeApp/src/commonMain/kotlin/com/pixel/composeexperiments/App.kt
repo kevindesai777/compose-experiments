@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -95,6 +96,7 @@ fun HomeScreen(
                         )
                     )
                 )
+                .safeDrawingPadding()
                 .padding(24.dp),
             contentAlignment = Alignment.Center
         ) {
