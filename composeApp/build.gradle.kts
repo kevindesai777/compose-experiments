@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -97,8 +98,30 @@ android {
         applicationId = "com.pixel.composeexperiments"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        // Play rejects an upload whose versionCode isn't higher than the last one, so bump
+        // both on every release (or pass -PversionCode=N from CI).
+        versionCode = (findProperty("versionCode") as String?)?.toInt() ?: 1
+        versionName = "1.0.0"
+    }
+    signingConfigs {
+        // Upload key for Play App Signing. Read from keystore.properties (local, gitignored)
+        // or ANDROID_* env vars (CI); without either, release builds come out unsigned.
+        val keystoreProperties = Properties().apply {
+            val file = rootProject.file("keystore.properties")
+            if (file.exists()) file.inputStream().use(::load)
+        }
+        fun secret(key: String, env: String): String? =
+            keystoreProperties.getProperty(key) ?: System.getenv(env)
+
+        val storePath = secret("storeFile", "ANDROID_KEYSTORE_PATH")
+        if (storePath != null) {
+            create("release") {
+                storeFile = rootProject.file(storePath)
+                storePassword = secret("storePassword", "ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = secret("keyAlias", "ANDROID_KEY_ALIAS")
+                keyPassword = secret("keyPassword", "ANDROID_KEY_PASSWORD")
+            }
+        }
     }
     packaging {
         resources {
@@ -107,7 +130,13 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            signingConfig = signingConfigs.findByName("release")
         }
     }
     compileOptions {
