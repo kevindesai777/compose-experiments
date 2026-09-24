@@ -6,10 +6,13 @@ Every experiment lives in `composeApp/src/commonMain` and is reachable from the 
 
 | Experiment | File |
 |---|---|
-| Libby Book Arrangement | `LibbyBookArrangement.kt` |
+| Libby Book Arrangement | `libby/` |
 | Severance Text Animation | `HelloMsCobel.kt` |
 | Lyft Shadow Button | `LyftButtonShadow.kt` |
 | Water Tracker Mesh Gradient | `WaterTracker.kt` |
+
+The Libby layout's geometry is unit tested in `composeApp/src/commonTest`; run it with
+`./gradlew :composeApp:desktopTest`.
 
 ### A note on the toolchain
 
