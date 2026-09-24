@@ -1,6 +1,5 @@
 package com.pixel.composeexperiments
 
-import LibbyBookArrangement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.pixel.composeexperiments.libby.LibbyBookArrangement
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
