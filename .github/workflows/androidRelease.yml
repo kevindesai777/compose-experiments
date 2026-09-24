@@ -51,7 +51,7 @@ jobs:
 
       # versionCode tracks the run number so every CI bundle is uploadable to Play.
       - name: "🛠️ Build release bundle"
-        run: ./gradlew :composeApp:bundleRelease -PversionCode=${{ github.run_number }}
+        run: ./gradlew :androidApp:bundleRelease -PversionCode=${{ github.run_number }}
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
@@ -62,5 +62,5 @@ jobs:
         with:
           name: android-release-${{ github.run_number }}
           path: |
-            composeApp/build/outputs/bundle/release/*.aab
-            composeApp/build/outputs/mapping/release/mapping.txt
+            androidApp/build/outputs/bundle/release/*.aab
+            androidApp/build/outputs/mapping/release/mapping.txt
