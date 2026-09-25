@@ -25,7 +25,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         // Play rejects an upload whose versionCode isn't higher than the last one, so bump
         // both on every release (or pass -PversionCode=N from CI).
-        versionCode = (findProperty("versionCode") as String?)?.toInt() ?: 1
+        versionCode = 2
         versionName = "1.0.1"
     }
     signingConfigs {
