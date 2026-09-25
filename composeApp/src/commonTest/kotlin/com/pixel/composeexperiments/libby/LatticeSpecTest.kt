@@ -145,6 +145,41 @@ class LatticeSpecTest {
     }
 
     @Test
+    fun aCoveringFieldLeavesNoHoleAtTheEdges() {
+        // Centre the field on the screen and probe it: every point should be on a
+        // cover or in a channel beside one, never in a gap a missing cell left.
+        val screens = listOf(360 to 640, 412 to 915, 600 to 960, 884 to 600, 1440 to 900, 1731 to 1000)
+        listOf(Triple(w, h, gap), Triple(84, 126, 17)).forEach { (cw, ch, g) ->
+            val s = LatticeSpec(cw, ch, g)
+            screens.forEach { (sw, sh) ->
+                val columns = s.columnsToCover(sw)
+                val count = s.countFor(s.rowsToCover(sh), columns)
+                val dx = (s.fieldWidth(count, columns) - sw) / 2f
+                val dy = (s.fieldHeight(count, columns) - sh) / 2f
+                assertTrue(dx >= 0 && dy >= 0, "$sw x $sh: field smaller than the screen")
+
+                val boxes = s.place(count, columns).map { box45(it, cw, ch) }
+                for (x in 0..sw step 4) for (y in 0..sh step 4) {
+                    val u = (x + dx + y + dy) / ROOT_2
+                    val v = (y + dy - x - dx) / ROOT_2
+                    val nearest = boxes.minOf { hypot(max(0f, max(it.uMin - u, u - it.uMax)), max(0f, max(it.vMin - v, v - it.vMax))) }
+                    assertTrue(nearest <= g + TOLERANCE, "$sw x $sh: hole at ($x, $y)")
+                }
+            }
+        }
+    }
+
+    @Test
+    fun countForFillsWholeRows() {
+        val columns = 3
+        listOf(1, 2, 5, 12).forEach { rows ->
+            val count = spec.countFor(rows, columns)
+            assertEquals(rows, spec.rowsFor(count, columns), "rows for $count")
+            assertEquals(rows + 1, spec.rowsFor(count + 1, columns), "one more starts row ${rows + 1}")
+        }
+    }
+
+    @Test
     fun columnsNeverDropBelowOne() {
         assertEquals(1, spec.columnsFor(0))
         assertEquals(1, spec.columnsFor(50))

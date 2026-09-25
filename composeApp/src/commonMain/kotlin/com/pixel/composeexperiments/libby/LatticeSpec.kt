@@ -1,5 +1,6 @@
 package com.pixel.composeexperiments.libby
 
+import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -42,6 +43,19 @@ class LatticeSpec(
     /** The first cell needs a whole box, and each one after it adds a pitch. */
     fun columnsFor(availableWidth: Int): Int =
         max(1, ((availableWidth - diamond) / pitch).toInt() + 1)
+
+    /**
+     * Columns for a field centred in [width] that runs off both sides. The cell
+     * just past each edge is missing, so the overflow on each side must be at
+     * least `diamond - rowShift` to keep that hole out of view.
+     */
+    fun columnsToCover(width: Int): Int = max(1, ceil((width + diamond) / pitch).toInt())
+
+    /** Rows for a field centred in [height] that runs off the top and bottom, as above. */
+    fun rowsToCover(height: Int): Int = max(1, ceil((height + diamond) / rowPitch).toInt() - 1)
+
+    /** How many items fill [rows] complete rows. */
+    fun countFor(rows: Int, columns: Int): Int = rows / 2 * (2 * columns - 1) + rows % 2 * columns
 
     /**
      * Rows come in pairs: a full row, then one a cell shorter. Dividing the

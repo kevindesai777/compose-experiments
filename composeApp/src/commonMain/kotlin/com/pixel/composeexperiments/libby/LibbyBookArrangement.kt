@@ -2,7 +2,7 @@ package com.pixel.composeexperiments.libby
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import composeexperiments.composeapp.generated.resources.Res
 import composeexperiments.composeapp.generated.resources.book_alice
@@ -36,26 +37,37 @@ import composeexperiments.composeapp.generated.resources.book_wizard_of_oz
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
+private val CellWidth = 84.dp
+private val CellHeight = 126.dp
+private val Gap = 17.dp
+
 /**
  * The cell is the covers' own 2:3 shape, so each cover fills it exactly — no
  * crop, no mat. Proportions are taken from Libby's site: the channel between
- * covers is a fifth of a cover's width, and 28 books make five rows of
- * 6-5-6-5-6 on a wide screen.
+ * covers is a fifth of a cover's width. Like the app, the wall runs off every
+ * edge of the screen, repeating covers to fill it.
  */
 @Composable
 fun LibbyBookArrangement() {
-    Box(
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
             .clipToBounds(),
         contentAlignment = Alignment.Center,
     ) {
+        val spec = with(LocalDensity.current) {
+            LatticeSpec(CellWidth.roundToPx(), CellHeight.roundToPx(), Gap.roundToPx())
+        }
+        val columns = spec.columnsToCover(constraints.maxWidth)
+        val count = spec.countFor(spec.rowsToCover(constraints.maxHeight), columns)
+
         DiamondLattice(
-            items = bookShelf,
-            cellWidth = 84.dp,
-            cellHeight = 126.dp,
-            gap = 17.dp,
+            items = List(count) { index -> covers[index % covers.size] },
+            cellWidth = CellWidth,
+            cellHeight = CellHeight,
+            gap = Gap,
+            columns = columns,
         ) { cover ->
             Image(
                 painter = painterResource(cover),
@@ -91,5 +103,3 @@ private val covers: List<DrawableResource> = listOf(
     Res.drawable.book_eighty_days,
     Res.drawable.book_wind_willows,
 )
-
-private val bookShelf: List<DrawableResource> = List(28) { index -> covers[index % covers.size] }

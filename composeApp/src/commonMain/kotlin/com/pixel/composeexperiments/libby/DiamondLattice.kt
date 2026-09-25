@@ -10,6 +10,7 @@ import kotlin.math.max
 /**
  * Lays items out like the book covers in the Libby app. [gap] is the space
  * between two covers. Items are drawn upright; the layout does the tilting.
+ * Leave [columns] null to fit as many as the width allows.
  */
 @Composable
 fun <T> DiamondLattice(
@@ -18,6 +19,7 @@ fun <T> DiamondLattice(
     cellHeight: Dp,
     gap: Dp,
     modifier: Modifier = Modifier,
+    columns: Int? = null,
     itemContent: @Composable (T) -> Unit,
 ) {
     Layout(
@@ -29,8 +31,8 @@ fun <T> DiamondLattice(
         val spec = LatticeSpec(cellWidthPx, cellHeightPx, gap.roundToPx())
 
         // In a horizontal scroll there is no width limit, so use one long row.
-        val columns =
-            if (constraints.hasBoundedWidth) spec.columnsFor(constraints.maxWidth)
+        val columnCount = columns
+            ?: if (constraints.hasBoundedWidth) spec.columnsFor(constraints.maxWidth)
             else max(1, measurables.size)
 
         // Every item gets exactly the cell size, so they all fit the pattern.
@@ -38,11 +40,11 @@ fun <T> DiamondLattice(
         val placeables = measurables.map { it.measure(cell) }
 
         layout(
-            width = spec.fieldWidth(placeables.size, columns),
-            height = spec.fieldHeight(placeables.size, columns),
+            width = spec.fieldWidth(placeables.size, columnCount),
+            height = spec.fieldHeight(placeables.size, columnCount),
         ) {
             placeables.forEachIndexed { index, placeable ->
-                val placement = spec.placementOf(index, columns)
+                val placement = spec.placementOf(index, columnCount)
                 // place() wants the top-left corner, and we have the center.
                 placeable.placeWithLayer(
                     x = placement.x - placeable.width / 2,
