@@ -2,6 +2,8 @@
 
 UI experiments built once with Compose Multiplatform and running on Android, iOS and web.
 
+<a href="https://play.google.com/store/apps/details?id=com.pixel.composeexperiments"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="80"></a>
+
 **Try it in the browser:** [kevindesai777.github.io/compose-experiments](https://kevindesai777.github.io/compose-experiments/)
 
 ## Experiments
