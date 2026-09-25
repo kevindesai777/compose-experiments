@@ -26,7 +26,7 @@ android {
         // Play rejects an upload whose versionCode isn't higher than the last one, so bump
         // both on every release (or pass -PversionCode=N from CI).
         versionCode = (findProperty("versionCode") as String?)?.toInt() ?: 1
-        versionName = "1.0.0"
+        versionName = "1.0.1"
     }
     signingConfigs {
         // Upload key for Play App Signing. Read from keystore.properties (local, gitignored)
