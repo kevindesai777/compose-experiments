@@ -12,9 +12,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import composeexperiments.composeapp.generated.resources.Res
-import composeexperiments.composeapp.generated.resources.book1
-import composeexperiments.composeapp.generated.resources.book2
-import composeexperiments.composeapp.generated.resources.book3
+import composeexperiments.composeapp.generated.resources.book_alice
+import composeexperiments.composeapp.generated.resources.book_anne
+import composeexperiments.composeapp.generated.resources.book_black_beauty
+import composeexperiments.composeapp.generated.resources.book_dracula
+import composeexperiments.composeapp.generated.resources.book_eighty_days
+import composeexperiments.composeapp.generated.resources.book_hound
+import composeexperiments.composeapp.generated.resources.book_huck_finn
+import composeexperiments.composeapp.generated.resources.book_invisible_man
+import composeexperiments.composeapp.generated.resources.book_jungle_book
+import composeexperiments.composeapp.generated.resources.book_land_of_oz
+import composeexperiments.composeapp.generated.resources.book_peter_pan
+import composeexperiments.composeapp.generated.resources.book_peter_rabbit
+import composeexperiments.composeapp.generated.resources.book_rebecca
+import composeexperiments.composeapp.generated.resources.book_secret_garden
+import composeexperiments.composeapp.generated.resources.book_sherlock
+import composeexperiments.composeapp.generated.resources.book_thirty_nine_steps
+import composeexperiments.composeapp.generated.resources.book_time_machine
+import composeexperiments.composeapp.generated.resources.book_tom_sawyer
+import composeexperiments.composeapp.generated.resources.book_war_of_the_worlds
+import composeexperiments.composeapp.generated.resources.book_wind_willows
+import composeexperiments.composeapp.generated.resources.book_wizard_of_oz
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -49,10 +67,29 @@ fun LibbyBookArrangement() {
     }
 }
 
-private val bookShelf: List<DrawableResource> = List(28) { index ->
-    when (index % 3) {
-        0 -> Res.drawable.book1
-        1 -> Res.drawable.book2
-        else -> Res.drawable.book3
-    }
-}
+/** Public domain first-edition covers; sources are listed in the README. */
+private val covers: List<DrawableResource> = listOf(
+    Res.drawable.book_hound,
+    Res.drawable.book_jungle_book,
+    Res.drawable.book_dracula,
+    Res.drawable.book_tom_sawyer,
+    Res.drawable.book_anne,
+    Res.drawable.book_land_of_oz,
+    Res.drawable.book_wizard_of_oz,
+    Res.drawable.book_sherlock,
+    Res.drawable.book_invisible_man,
+    Res.drawable.book_black_beauty,
+    Res.drawable.book_peter_pan,
+    Res.drawable.book_thirty_nine_steps,
+    Res.drawable.book_alice,
+    Res.drawable.book_war_of_the_worlds,
+    Res.drawable.book_secret_garden,
+    Res.drawable.book_peter_rabbit,
+    Res.drawable.book_huck_finn,
+    Res.drawable.book_time_machine,
+    Res.drawable.book_rebecca,
+    Res.drawable.book_eighty_days,
+    Res.drawable.book_wind_willows,
+)
+
+private val bookShelf: List<DrawableResource> = List(28) { index -> covers[index % covers.size] }
