@@ -1,5 +1,8 @@
 # Compose Experiments
 
+[![Featured in Android Weekly #741](https://androidweekly.net/issues/issue-741/badge)](https://androidweekly.net/issues/issue-741)
+[![Featured in Android Weekly #746](https://androidweekly.net/issues/issue-746/badge)](https://androidweekly.net/issues/issue-746)
+
 UI experiments built once with Compose Multiplatform and running on Android, iOS and web.
 
 <a href="https://play.google.com/store/apps/details?id=com.pixel.composeexperiments"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="80"></a>
