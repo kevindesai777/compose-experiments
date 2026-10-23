@@ -1,7 +1,9 @@
 [versions]
-# Compose 1.12's Android artifacts hard-require AGP 9.1+ and compileSdk 37.
+# Compose 1.12's Android artifacts hard-require AGP 9.1+ and compileSdk 37; 1.13's raise
+# that to compileSdk 37.1.
 agp = "9.3.1"
 android-compileSdk = "37"
+android-compileSdkMinor = "1"
 android-minSdk = "29"
 android-targetSdk = "37"
 androidx-activityCompose = "1.11.0"
@@ -14,12 +16,14 @@ androidx-material = "1.13.0"
 androidx-test-junit = "1.3.0"
 # 1.12.0 is the first Compose Multiplatform release that renders MeshGradientPainter
 # on the Skiko backends (iOS/desktop/web), so the water experiment sets the floor here.
-compose-multiplatform = "1.12.1"
+# On the 1.13 beta for its fix to the crash when an app moves between the iPhone Duo's
+# outer and inner displays (compose-multiplatform-core#3491); move to 1.13.0 once stable.
+compose-multiplatform = "1.13.0-beta01"
 junit = "4.13.2"
 kotlin = "2.4.20"
 kotlinx-coroutines = "1.11.0"
 kotlinxSerializationJson = "1.11.0"
-navigationCompose = "2.10.0-beta01"
+navigationCompose = "2.10.0"
 kotlin-serialization = "2.4.20"
 
 [libraries]

@@ -32,7 +32,7 @@ All shared code lives in `composeApp/src/commonMain`; every experiment is reacha
 
 ## Toolchain
 
-Compose Multiplatform `1.12.1`, Kotlin `2.4.20`, AGP `9.3.1`, Gradle `9.5.0`, `compileSdk 37`.
+Compose Multiplatform `1.13.0-beta01`, Kotlin `2.4.20`, AGP `9.3.1`, Gradle `9.5.0`, `compileSdk 37`.
 
 ## License
 
