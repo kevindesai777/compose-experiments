@@ -12,8 +12,12 @@ struct ComposeView: UIViewControllerRepresentable {
 
 struct ContentView: View {
     var body: some View {
+        // Full-bleed like Android: backgrounds run under the bars, and screens inset their
+        // content with safeDrawingPadding(). Compose handles the keyboard itself.
         ComposeView()
-                .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
+                .ignoresSafeArea()
+                // Every screen is dark, so ask for light status-bar icons.
+                .preferredColorScheme(.dark)
     }
 }
 
